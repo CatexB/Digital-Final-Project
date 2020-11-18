@@ -24,7 +24,7 @@ body {
         <a href="/home.php">Home</a>
     </div>
 </div>
-<body>
+<body style="background-color:#d1fad2;">
 <?php echo get_location_html($location); ?>
 
 </body>

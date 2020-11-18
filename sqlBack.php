@@ -15,7 +15,7 @@ function getAllTweets()
 function getLocation($location)
 {
     global $db;
-    $query = "SELECT * FROM locations WHERE location=:location";
+    $query = "SELECT * FROM locations WHERE twitter_acct=:location";
     $statement = $db->prepare($query);
     $statement->bindValue(":location", $location);
     $statement->execute();
@@ -66,6 +66,7 @@ function get_tweet_html($tweets)
 
 function get_location_html($location)
 {
+
     $res = [];
     $res .= sprintf("<h1>%s</h1>", $location[1]);
     $res .= sprintf("<li>%s</li>", $location[2]);
