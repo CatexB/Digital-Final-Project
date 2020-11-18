@@ -5,12 +5,13 @@ require('sqlBack.php');
 
 $tweets = getAllTweets();
 ?>
-<head><style type="text/css">
+<head>
+
+    <style type="text/css">
         table{
             table-layout:fixed;
             width: 60%;
         }
-
         table tr th:nth-child(3){
             width: 100%;
         }
