@@ -1,10 +1,4 @@
-<?php
 
-require('connectdb.php');
-require('sqlBack.php');
-
-$tweets = getAllTweets();
-?>
 <head>
 
     <style type="text/css">
@@ -20,7 +14,6 @@ $tweets = getAllTweets();
 
 
 <h1>Tweets</h1>
-<?php echo get_tweet_html($tweets); ?>
 
 
 
