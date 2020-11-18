@@ -67,7 +67,7 @@ function get_tweet_html($tweets)
 function get_location_html($location)
 {
 
-    $res = [];
+    $res = "";
     $res .= sprintf("<h1>%s</h1>", $location[1]);
     $res .= sprintf("<li>%s</li>", $location[2]);
     $res .= sprintf("<li>%s</li>", $location[3]);
