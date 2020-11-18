@@ -5,21 +5,31 @@ require('sqlBack.php');
 
 $tweets = getAllTweets();
 ?>
-
 <!DOCTYPE html>
 <html>
-<head><style type="text/css">
-        body {
-            font: 20px;
-            background-image: url('https://img.freepik.com/free-photo/blue-square-tiled-texture-background_53876-63563.jpg?size=626&ext=jpg');
-
+<head>
+    <title>Archaeological Site and Museum Twitter Database</title>
+    <style type="text/css">
+        table{
+            table-layout:fixed;
+            width: 60%;
         }
-    </style></head>
-<body>
+        table tr th:nth-child(3){
+            width: 100%;
+        }
+</style></head>
+<body style="background-color:#d1fad2;">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+
 <h1>Tweets</h1>
 <?php echo get_tweet_html($tweets); ?>
 
+
+
 </body>
 </html>
+
+
 
 

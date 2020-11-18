@@ -4,8 +4,8 @@ require('connectdb.php');
 require('sqlBack.php');
 
 
-if (isset($_GET['location'])) {
-    $id = $_GET['location'];
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
 } else {
     echo "Something horrible has happened!";
 }
@@ -21,11 +21,8 @@ body {
 </style></head>
 <div class="container-fluid">
     <div class="navbar-header">
-        <a class="navbar-brand" href="home.php">Digital</a>
+        <a href="/home.php">Home</a>
     </div>
-    <ul class="nav navbar-nav">
-        <li><a href="/home.php">Home</a></li>
-    </ul>
 </div>
 <body>
 <?php echo get_location_html($location); ?>
