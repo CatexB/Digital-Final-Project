@@ -4,7 +4,7 @@
 function getAllTweets()
 {
     global $db;
-    $query = "SELECT * FROM tweets_final";
+    $query = "SELECT * FROM tweets";
     $statement = $db->prepare($query);
     $statement->execute();
     $results = $statement->fetchAll(); //returns an array of rows
@@ -24,16 +24,17 @@ function getLocation($location)
     return $results;
 }
 
+
 function get_tweet_html($tweets)
 {
     $res = '<table style ="width:100%" border="1">';
     $res .= '<col style="width:10%">';
-    $res .= '<col style="width:15%">';
+    $res .= '<col style="width:7%">';
     $res .= '<col style="width:40%">';
     $res .= '<col style="width:7%">';
     $res .= '<col style="width:7%">';
-    $res .= '<col style="width:16%">';
-    $res .= '<col style="width:25%">';
+    $res .= '<col style="width:10%">';
+    $res .= '<col style="width:35%">';
 
     if (empty($tweets)) {
         return "<h1>No Tweets to display!</h1>";
