@@ -6,6 +6,7 @@ require('sqlBack.php');
 $tweets = getAllTweets();
 ?>
 <!DOCTYPE html>
+<html>
 <head>
 
     <style type="text/css">
