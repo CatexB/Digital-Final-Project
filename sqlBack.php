@@ -12,12 +12,70 @@ function getAllTweets()
     return $results;
 }
 
+function getUniqueUsers()
+{
+    global $db;
+    $query = "SELECT twitter_acct FROM locations";
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $results = $statement->fetchAll(); //returns an array of rows
+    $statement->closeCursor();
+    return $results;
+}
+
 function getLocation($location)
 {
     global $db;
     $query = "SELECT * FROM locations WHERE twitter_acct=:location";
     $statement = $db->prepare($query);
     $statement->bindValue(":location", $location);
+    $statement->execute();
+    $results = $statement->fetchAll(); //returns an array of rows
+    $statement->closeCursor();
+    return $results;
+}
+
+function filterTweets($account_to_search, $begindate, $enddate, $tag_to_search) {
+    if($account_to_search == "" && $begindate == null && $enddate == null && $tag_to_search == "") {
+        return getAllTweets();
+    }
+    global $db;
+    $queries = array();
+    $query = "SELECT * FROM tweets WHERE ";
+    if($account_to_search != "") {
+        array_push($queries," twitter_acct=:account_to_search");
+    }
+    if($begindate != null) {
+        array_push($queries," date >= :begin");
+    }
+    if($enddate != null) {
+        array_push($queries," date <= :end");
+    }
+    if ($tag_to_search != ""){
+        array_push($queries,(" tags LIKE ").("'%").$tag_to_search.("%'"));
+    }
+    $i = 0;
+    foreach($queries as $q) {
+        if($i == 0) {
+            $query .= $q;
+            $i = 1;
+        }
+        else {
+            $query .= " AND ";
+            $query .= $q;
+        }
+    }
+    $statement = $db->prepare($query);
+    if($account_to_search != "") {
+        $statement->bindValue(":account_to_search", $account_to_search);
+    }
+    if($begindate != null) {
+        $statement->bindValue(":begin", $begindate);
+    }
+    if($enddate != null) {
+        $statement->bindValue(":end", $enddate);
+    }
+
     $statement->execute();
     $results = $statement->fetchAll(); //returns an array of rows
     $statement->closeCursor();

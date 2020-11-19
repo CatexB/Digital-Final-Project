@@ -4,6 +4,7 @@ require('connectdb.php');
 require('sqlBack.php');
 
 $tweets = getAllTweets();
+$usernames = getUniqueUsers();
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
     if(!empty($_POST['action']) && ($_POST['action']=='Export tweets to CSV')) {
@@ -16,6 +17,25 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             fputcsv($fp, array($row[0],$row[1],$row[2],$row[3],$row[4],$row[5],$row[6]));
         }
         fclose($fp);
+    }
+    else if(!empty($_POST['action']) && ($_POST['action']=='Filter')) {
+        $account_to_search = "";
+        $begindate = null;
+        $enddate = null;
+        $tag_to_search = "";
+        if(isset($_REQUEST['account_to_search'])) {
+            $account_to_search = $_REQUEST['account_to_search'];
+        }
+        if(isset($_REQUEST['begindate'])) {
+            $begindate = $_REQUEST['begindate'];
+        }
+        if(isset($_REQUEST['enddate'])) {
+            $enddate = $_REQUEST['enddate'];
+        }
+        if(isset($_REQUEST['tag_to_search'])) {
+            $tag_to_search = $_REQUEST['tag_to_search'];
+        }
+        $tweets = filterTweets($account_to_search, $begindate, $enddate, $tag_to_search);
     }
 
 }
@@ -38,6 +58,25 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <h1>Tweets</h1>
 <h5>Filters</h5>
+<form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+    <label for="account_to_search">Find Tweet by account:</label>
+    <select name="account_to_search" id="account_to_search">
+        <option value=""></option>
+        <?php
+        $lines = "";
+        foreach($usernames as $user) {
+            $lines .= sprintf("<option value=%s>%s</option>", $user[0], $user[0]);
+        }
+        echo $lines;?>
+    </select>
+    <label for="begindate">Begin Date:</label>
+    <input type="date" id="begindate" name="begindate">
+    <label for="enddate">End Date:</label>
+    <input type="date" id="enddate" name="enddate">
+    <label for="tag_to_search">Find Tweet by tag:</label>
+    <input type="text" value="" name="tag_to_search" title="search for tweets by tag" />
+    <input type="submit" value="Filter" name="action" class="btn btn-primary" />
+</form>
 <form method="post">
     <input type="submit" value="Export tweets to CSV" name="action" class="btn btn-primary" title="Export all tweets to csv" />
 </form>
