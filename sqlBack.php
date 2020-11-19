@@ -30,7 +30,7 @@ function getLocation($location)
     $statement = $db->prepare($query);
     $statement->bindValue(":location", $location);
     $statement->execute();
-    $results = $statement->fetchAll(); //returns an array of rows
+    $results = $statement->fetch(); //returns an array of rows
     $statement->closeCursor();
     return $results;
 }
