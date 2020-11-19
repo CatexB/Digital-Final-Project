@@ -7,18 +7,7 @@ $tweets = getAllTweets();
 $usernames = getUniqueUsers();
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if(!empty($_POST['action']) && ($_POST['action']=='Export tweets to CSV')) {
-        $fp = fopen('php://output', 'wb');
-        header('Content-Type: text/csv; charset=utf-8');
-        header('Content-Disposition: attachment; filename=tweets.csv');
-        fputcsv($fp, array('Twitter Account','Date Tweeted','Tweet Text','Retweet Count','Favorite Count','Hashtags','URLS'));
-        foreach($tweets as $row)
-        {
-            fputcsv($fp, array($row[0],$row[1],$row[2],$row[3],$row[4],$row[5],$row[6]));
-        }
-        fclose($fp);
-    }
-    else if(!empty($_POST['action']) && ($_POST['action']=='Filter')) {
+    if(!empty($_POST['action']) && ($_POST['action']=='Filter')) {
         $account_to_search = "";
         $begindate = null;
         $enddate = null;
@@ -36,6 +25,17 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             $tag_to_search = $_REQUEST['tag_to_search'];
         }
         $tweets = filterTweets($account_to_search, $begindate, $enddate, $tag_to_search);
+    }
+    if(!empty($_POST['action']) && ($_POST['action']=='Export tweets to CSV')) {
+        $fp = fopen('php://output', 'wb');
+        header('Content-Type: text/csv; charset=utf-8');
+        header('Content-Disposition: attachment; filename=tweets.csv');
+        fputcsv($fp, array('Twitter Account','Date Tweeted','Tweet Text','Retweet Count','Favorite Count','Hashtags','URLS'));
+        foreach($tweets as $row)
+        {
+            fputcsv($fp, array($row[0],$row[1],$row[2],$row[3],$row[4],$row[5],$row[6]));
+        }
+        fclose($fp);
     }
 
 }

@@ -4,7 +4,7 @@
 function getAllTweets()
 {
     global $db;
-    $query = "SELECT * FROM tweets";
+    $query = "SELECT * FROM tweets_v2";
     $statement = $db->prepare($query);
     $statement->execute();
     $results = $statement->fetchAll(); //returns an array of rows
@@ -41,7 +41,7 @@ function filterTweets($account_to_search, $begindate, $enddate, $tag_to_search) 
     }
     global $db;
     $queries = array();
-    $query = "SELECT * FROM tweets WHERE ";
+    $query = "SELECT * FROM tweets_v2 WHERE ";
     if($account_to_search != "") {
         array_push($queries," twitter_acct=:account_to_search");
     }
