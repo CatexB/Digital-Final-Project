@@ -126,10 +126,10 @@ function get_location_html($location)
 {
 
     $res = "";
-    $res .= sprintf("<h1>%s</h1>", $location[1]);
+    $res .= sprintf("<h1>%s</h1>", $location[0]);
+    $res .= sprintf("<li>%s</li>", $location[1]);
     $res .= sprintf("<li>%s</li>", $location[2]);
     $res .= sprintf("<li>%s</li>", $location[3]);
-    $res .= sprintf("<li>%s</li>", $location[4]);
     return $res;
 }
 

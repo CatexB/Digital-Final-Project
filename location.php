@@ -25,6 +25,7 @@ body {
     </div>
 </div>
 <body style="background-color:#d1fad2;">
+<?php echo ($location); ?>
 <?php echo get_location_html($location); ?>
 
 </body>
